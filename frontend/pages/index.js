@@ -1,78 +1,133 @@
-import Image from "next/image";
-import { Geist, Geist_Mono } from "next/font/google";
+import FAQCategoryList from "@/components/faq/faqCategories";
+import FAQCommonQuestions from "@/components/faq/faqCommonQuestions";
+import FAQFeaturedSection from "@/components/faq/faqFeaturedSection";
+import FAQSearch from "@/components/faq/faqSearch";
+import Heading1 from "@/components/Heading1";
+import Subtitle from "@/components/Subtitle";
+import { client } from "@/sanity/client";
+import {
+  FAQ_HOMEPAGE_COMMON_ARTICLES_QUERY,
+  FAQ_HOMEPAGE_QUERY,
+} from "@/sanity/queries";
+import Head from "next/head";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+export default function Home({ homepage, articles }) {
+  const sections = Array.isArray(homepage?.sections) ? homepage.sections : [];
+  const firstFeaturedIndex = sections.findIndex(
+    (section) => section._type === "faqFeaturedSection"
+  );
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+  const pageTitle = homepage?.title || "Shopify Plus FAQ Hub";
+  const description =
+    homepage?.description ||
+    "Expert answers and best practices for Shopify Plus—browse categories, featured guides, and common questions.";
+  const ogImage = `${process.env.NEXT_PUBLIC_BASE_URL}/images/og.png`;
+  const canonicalUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
-export default function Home() {
-  return (
-    <div
-      className={`${geistSans.className} ${geistMono.className} flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black`}
-    >
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the index.js file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+  const renderSection = (section, index) => {
+    switch (section._type) {
+      case "faqSearch":
+        return (
+          <div key={section._key} className="w-full">
+            <FAQSearch {...section} />
+          </div>
+        );
+      case "faqCategories":
+        return (
+          <div key={section._key} className="md:mt-[73px] mt-[36px]">
+            <FAQCategoryList
+              title={section?.title}
+              items={section?.categories || []}
+              current=""
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs/pages/getting-started?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+          </div>
+        );
+      case "faqFeaturedSection": {
+        const isFirstFeatured = index === firstFeaturedIndex;
+        return (
+          <div
+            key={section._key}
+            className={
+              isFirstFeatured
+                ? "md:mt-[134px] mt-[50px]"
+                : "md:mt-[150px] mt-[25px]"
+            }
           >
-            Documentation
-          </a>
+            <FAQFeaturedSection {...section} />
+          </div>
+        );
+      }
+      case "faqCommonQuestions":
+        return (
+          <div key={section._key} className="md:mt-[150px] mt-[50px]">
+            <FAQCommonQuestions articles={articles} {...section} />
+          </div>
+        );
+      default:
+        return <div key={section._key}>Block not found: {section._type}</div>;
+    }
+  };
+  return (
+    <div>
+      <Head>
+        <title>{`${pageTitle} | Deploi`}</title>
+        <meta name="title" content={pageTitle} />
+        <meta name="description" content={description} />
+        <meta property="og:image" content={ogImage} />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={description} />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={pageTitle} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={ogImage} />
+        <link rel="canonical" href={canonicalUrl} />
+      </Head>
+      <main>
+        <div className="relative max-w-[922px] pt-10 md:pt-20 md:pb-[150px] pb-[50px] md:px-0 px-6 mx-auto">
+          <Heading1>{homepage?.heading || "Heading"}</Heading1>
+          {homepage?.subheading && <Subtitle>{homepage.subheading}</Subtitle>}
+          {sections.map(renderSection)}
         </div>
       </main>
     </div>
   );
+}
+
+export async function getServerSideProps(context) {
+  // Fetch homepage data
+  const homepage = await client.fetch(FAQ_HOMEPAGE_QUERY);
+
+  // Early return if homepage doesn't exist
+  if (!homepage) {
+    return {
+      notFound: true,
+    };
+  }
+
+  // Extract limit with default value
+  const articlesLimit =
+    homepage?.sections?.find(
+      (section) => section._type === "faqCommonQuestions"
+    )?.limit ?? 5;
+
+  // Fetch articles
+  const articles = await client.fetch(FAQ_HOMEPAGE_COMMON_ARTICLES_QUERY, {
+    limit: articlesLimit,
+  });
+
+  // Check articles after fetching
+  if (!articles) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: {
+      homepage,
+      articles,
+    },
+  };
 }

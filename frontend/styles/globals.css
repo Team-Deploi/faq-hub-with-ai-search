@@ -1,26 +1,348 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* Custom Colors */
+  --color-primary-10: #7624c41a;
+  --color-primary-25: #7624c440;
+  --color-primary-50: #7624c480;
+  --color-primary-75: #7624c4bf;
+  --color-primary-90: #7624c4e6;
+  --color-primary-100: #7624c4;
+
+  --color-black-25: #00000040;
+  --color-black-50: #00000080;
+  --color-black-75: #000000bf;
+  --color-black-100: #000000;
+
+  --color-tertiary-5: #7979790d;
+  --color-tertiary-25: #79797940;
+  --color-tertiary-50: #79797980;
+  --color-tertiary-75: #797979bf;
+  --color-tertiary-100: #797979;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Typography Plugin Customization */
+@plugin "@tailwindcss/typography" {
+  --tw-prose-body: #636363;
+  --tw-prose-headings: var(--color-black-100);
+  --tw-prose-bullets: var(--color-black-100);
+  --tw-prose-counters: var(--color-black-100);
+  --tw-prose-links: var(--color-primary-100);
+  --tw-prose-quote-borders: var(--color-primary-100);
+  --tw-prose-captions: var(--color-tertiary-100);
+  --tw-prose-hr: var(--color-tertiary-25);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Custom Typography Styles */
+.prose p,
+.prose ul li,
+.prose ol li {
+  font-size: 18px;
+}
+
+@media (min-width: 768px) {
+  .prose-md p,
+  .prose-md ul li,
+  .prose-md ol li {
+    font-size: 20px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* blog details page css */
+.blog-content h1,
+.blog-content h2,
+.blog-content h3,
+.blog-content h4,
+.blog-content h5,
+.blog-content h6 {
+  /* font-size: 20px;
+  line-height: 30px; */
+  font-weight: 600;
+  margin-bottom: 1rem; /* 16px */
+  margin-top: 2.5rem; /* 40px */
+}
+
+.blog-content h1 {
+  font-size: 24px;
+  line-height: 40px;
+}
+
+.blog-content h2 {
+  font-size: 20px;
+  line-height: 30px;
+  margin-top: 3rem; /* 48px */
+}
+
+.blog-content h3 {
+  font-size: 18px;
+  line-height: 28px;
+}
+
+.blog-content h4 {
+  font-size: 16px;
+  line-height: 40px;
+}
+
+.blog-content h5 {
+  font-size: 14px;
+  line-height: 40px;
+}
+
+.blog-content h6 {
+  font-size: 12px;
+  line-height: 40px;
+}
+
+.blog-content a {
+  text-decoration-line: underline;
+  word-break: break-word;
+}
+
+.blog-content p {
+  font-size: 18px;
+  line-height: 30px;
+  font-weight: 400;
+  margin-bottom: 1rem; /* 16px */
+}
+
+.blog-content ul {
+  font-size: 18px;
+  line-height: 30px;
+  font-weight: 400;
+  margin-bottom: 1rem; /* 16px */
+  list-style-type: disc;
+}
+
+.blog-content ol {
+  font-size: 18px;
+  line-height: 30px;
+  font-weight: 400;
+  margin-bottom: 1rem; /* 16px */
+  list-style-type: decimal;
+}
+
+.blog-content li {
+  margin-left: 1.5rem; /* 24px */
+  margin-bottom: 1rem; /* 16px */
+}
+
+.blog-content img,
+.blog-content video {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1.5rem; /* 24px */
+  width: 100%;
+}
+
+.blog-content blockquote {
+  font-size: 18px;
+  line-height: 30px;
+  font-weight: 400;
+  margin-bottom: 1rem; /* 16px */
+  padding: 1rem; /* 16px */
+  border-radius: 0.5rem; /* 8px */
+  background-color: rgb(250, 250, 250);
+  color: rgb(99, 99, 99);
+}
+
+.blog-content blockquote p {
+  margin-bottom: 0px;
+}
+
+.blog-content pre {
+  overflow: auto;
+}
+
+.blog-content table {
+  font-size: 18px;
+  line-height: 30px;
+  font-weight: 400;
+}
+
+.blog-content table td {
+  padding: 8px;
+  border: 1px solid #000000;
+}
+
+@media (min-width: 768px) {
+  .blog-content h1,
+  .blog-content h2,
+  .blog-content h3,
+  .blog-content h4,
+  .blog-content h5,
+  .blog-content h6 {
+    /* font-size: 32px;
+    line-height: 40px; */
+    letter-spacing: 0.03em;
+    margin-bottom: 2rem; /* 32px */
+    margin-top: 4rem; /* 64px */
+  }
+
+  .blog-content h1 {
+    font-size: 40px;
+    line-height: 40px;
+  }
+
+  .blog-content h2 {
+    font-size: 32px;
+    line-height: 40px;
+    margin-top: 4.5rem; /* 72px */
+  }
+
+  .blog-content h3 {
+    font-size: 28px;
+    line-height: 38px;
+  }
+
+  .blog-content h4 {
+    font-size: 24px;
+    line-height: 40px;
+  }
+
+  .blog-content h5 {
+    font-size: 20px;
+    line-height: 40px;
+  }
+
+  .blog-content h6 {
+    font-size: 16px;
+    line-height: 40px;
+  }
+
+  .blog-content p {
+    font-size: 24px;
+    line-height: 40px;
+    letter-spacing: 0.03em;
+    margin-bottom: 2rem; /* 32px */
+  }
+
+  .blog-content ul,
+  .blog-content ol {
+    font-size: 24px;
+    line-height: 40px;
+    letter-spacing: 0.03em;
+    margin-bottom: 2rem; /* 32px */
+  }
+
+  .blog-content img,
+  .blog-content video {
+    margin-bottom: 3rem; /* 48px */
+  }
+
+  .blog-content blockquote {
+    font-size: 24px;
+    line-height: 40px;
+    letter-spacing: 0.03em;
+    margin-bottom: 2rem; /* 32px */
+    padding-left: 3.5rem; /* 56px */
+    padding-right: 3.5rem; /* 56px */
+    padding-top: 2rem; /* 32px */
+    padding-bottom: 2rem; /* 32px */
+  }
+
+  .blog-content table {
+    font-size: 24px;
+    line-height: 40px;
+  }
+
+  .blog-content table td {
+    padding: 10px;
+    border: 2px solid #000000;
+  }
+}
+/* blog details page css end */
+
+
+/* Copilot Chat */
+
+.copilotChatContainer {
+  --copilot-kit-primary-color: #7624c4;
+  --copilot-kit-background-color: #f9f9f9;
+}
+
+.copilotKitChat {
+  font-family: "Poppins", sans-serif !important;
+}
+
+.copilotKitPopup {
+  z-index: 999 !important;
+}
+
+.copilotKitMessagesContainer:empty {
+  display: none;
+}
+
+.copilotKitMessagesFooter:empty {
+  /* display: var(--copilot-chat-footer-display, none) !important; */
+  display: none !important;
+}
+
+.copilotKitMessageControls.currentMessage,
+.copilotKitMessageControls {
+  display: none !important;
+}
+
+.blog-content.copilotKitChat table {
+  display: block;
+  overflow-x: auto;
+  margin-bottom: 2rem;
+}
+
+.blog-content.copilotKitChat hr {
+  margin-bottom: 2rem;
+}
+
+.copilotKitMessage {
+  padding: 8px;
+}
+
+.copilotKitMessagesContainer {
+  padding: 0px 20px;
+}
+
+/* .copilotKitAssistantMessage.isCurrentMessage {
+  min-height: calc(100dvh - 300px);
+} */
+
+@media (max-width: 480px) {
+  .copilotKitMessagesContainer {
+    padding: 0px 18px;
+  }
+  .blog-content.copilotKitChat table {
+    margin-bottom: 1rem;
+  }
+  .blog-content.copilotKitChat hr {
+    margin-bottom: 1rem;
+  }
+}
+
+@keyframes popupIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes popupOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+.animatePopupIn {
+  animation: popupIn 0.2s forwards;
+}
+
+.animatePopupOut {
+  animation: popupOut 0.2s forwards;
 }

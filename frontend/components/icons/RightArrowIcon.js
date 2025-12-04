@@ -1,0 +1,21 @@
+export const RightArrowIcon = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="18"
+      viewBox="0 0 24 18"
+      fill="none"
+    >
+      <path
+        d="M1.33203 9H22.6654M22.6654 9L14.6654 1M22.6654 9L14.6654 17"
+        stroke="black"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+
