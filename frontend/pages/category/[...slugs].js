@@ -25,18 +25,13 @@ const CategoryPage = ({
   isSubcategory,
 }) => {
   const displayCategory = subcategory?.category || category;
-  const displayTitle = subcategory?.title || category?.title || "Shopify Plus";
-  const categoryTitle = displayCategory?.title || "Shopify Plus";
-  const categorySlug = displayCategory?.slug;
+  const displayTitle = subcategory?.title || category?.title;
+  const categorySlug = displayCategory?.slug || "";
   const subcategorySlug = subcategory?.slug;
-  const pageTitle = isSubcategory
-    ? displayTitle
-    : category?.title
-      ? `${category.title}`
-      : "Shopify Plus";
+  const pageTitle = isSubcategory ? displayTitle : category?.title;
   const headingTitle = isSubcategory ? category?.title : displayTitle;
   const heading = `${categoryPage?.heading ?? ""} ${headingTitle}`.trim();
-  const description = `Expert Shopify Plus FAQs for ${displayTitle}—find curated answers, guides, and common questions.`;
+  const description = `Expert Shopify FAQs for ${displayTitle}—find curated answers, guides, and common questions.`;
   const ogImage = `${process.env.BASE_URL}/images/og.png`;
   const canonicalUrl = subcategory
     ? `${process.env.NEXT_PUBLIC_BASE_URL}/category/${categorySlug}/${subcategorySlug}`
@@ -95,7 +90,7 @@ const CategoryPage = ({
   return (
     <div>
       <Head>
-        <title>{`${pageTitle} | Deploi`}</title>
+        <title>{pageTitle}</title>
         <meta name="title" content={pageTitle} />
         <meta name="description" content={description} />
         <meta property="og:image" content={ogImage} />
@@ -111,7 +106,7 @@ const CategoryPage = ({
       </Head>
       <main>
         <FAQBreadcrumbs
-          categoryName={categoryTitle}
+          categoryName={displayCategory?.title || ""}
           categorySlug={categorySlug}
           subCategoryName={subcategory?.title}
           subCategorySlug={subcategorySlug}

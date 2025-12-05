@@ -1,6 +1,6 @@
 import { apiClient } from "@/sanity/client";
 
-// NOTE FOR DEVELOPERS:
+// NOTE:
 // This endpoint currently increments article volume without IP-based rate limiting.
 // If you want to prevent multiple views from the same IP (e.g. using Redis),
 // reintroduce an IP-based check here before incrementing the volume.

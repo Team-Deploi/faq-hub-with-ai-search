@@ -25,24 +25,22 @@ const FAQPage = ({ article }) => {
   const { response } = useFaqChatbot();
   const pageUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/article/${article.slug}`;
   const ogImage = `${process.env.NEXT_PUBLIC_BASE_URL}/images/og.png`;
-  const pageTitle = title || "Shopify Plus | Deploi";
-  const metaTitle = `Shopify Plus FAQ Hub | ${title}`;
 
   useIncrementVolume(article?._id);
 
   return (
     <div>
       <Head>
-        <title>{pageTitle}</title>
-        <meta name="title" content={metaTitle} />
+        <title>{title}</title>
+        <meta name="title" content={title} />
         <meta name="description" content={excerpt} />
         <meta property="og:image" content={ogImage} />
-        <meta property="og:title" content={metaTitle} />
+        <meta property="og:title" content={title} />
         <meta property="og:description" content={excerpt} />
         <meta property="og:url" content={pageUrl} />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={metaTitle} />
+        <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={excerpt} />
         <meta name="twitter:image" content={ogImage} />
         <link rel="canonical" href={pageUrl} />

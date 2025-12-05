@@ -17,10 +17,9 @@ export default function Home({ homepage, articles }) {
     (section) => section._type === "faqFeaturedSection"
   );
 
-  const pageTitle = homepage?.title || "Shopify Plus FAQ Hub";
+  const pageTitle = homepage?.title || "Shopify FAQ Hub";
   const description =
-    homepage?.description ||
-    "Expert answers and best practices for Shopify Plus—browse categories, featured guides, and common questions.";
+    "Expert answers and best practices for Shopify browse categories, featured guides, and common questions.";
   const ogImage = `${process.env.NEXT_PUBLIC_BASE_URL}/images/og.png`;
   const canonicalUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -70,7 +69,7 @@ export default function Home({ homepage, articles }) {
   return (
     <div>
       <Head>
-        <title>{`${pageTitle} | Deploi`}</title>
+        <title>{pageTitle}</title>
         <meta name="title" content={pageTitle} />
         <meta name="description" content={description} />
         <meta property="og:image" content={ogImage} />
