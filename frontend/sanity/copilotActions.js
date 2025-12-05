@@ -3,7 +3,7 @@ import { FAQ_LLM_ARTICLES_QUERY, COMPANY_INFO_QUERY } from "./queries.js";
 
 async function queryEmbeddingsIndex(query, maxResults = 5) {
   const response = await embeddedApiClient.request({
-    url: `/embeddings-index/query/development/faq-articles-index`,
+    url: `/embeddings-index/query/production/faq-articles-index`,
     method: "POST",
     body: {
       query: query,

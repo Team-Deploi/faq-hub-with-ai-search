@@ -267,7 +267,7 @@ export const FAQ_ARTICLE_QUERY =
   category->{_id, title, "slug": slug.current},
   subCategory->{_id, title, "slug": slug.current},
   volume,
-  relatedArticles[]->{_id, title, "slug": slug.current}
+  relatedArticles[]->{_id, title, "slug": slug.current, excerpt}
 }`);
 
 export const FAQ_ARTICLE_SEARCH_QUERY = defineQuery(`{

@@ -5,17 +5,12 @@ import {
   useCopilotChat,
 } from "@copilotkit/react-core";
 
-import { faqCopilotInstructions } from "@/sanity/copilotInstructions";
-
 export const FAQChatComponent = ({ handleCopilotState, response }) => {
   const chatComponentRef = useRef(null);
   const { visibleMessages } = useCopilotChat();
 
-  const additionalInstructions =
-    response?.additionalInstructions ||
-    faqCopilotInstructions.additionalInstructions;
-  const chatInstructions =
-    response?.chatInstructions || faqCopilotInstructions.chatInstructions;
+  const additionalInstructions = response?.additionalInstructions;
+  const chatInstructions = response?.chatInstructions;
 
   useCopilotAdditionalInstructions(
     {

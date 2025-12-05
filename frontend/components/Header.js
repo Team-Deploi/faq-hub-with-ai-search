@@ -8,7 +8,7 @@ const Header = () => {
         <div className="flex items-center justify-between gap-5">
           <a className="flex items-center gap-2" href={"/"}>
             <span className="text-lg sm:text-2xl pl-2 font-semibold">
-              Sanity + Next.js
+              FAQ Hub With AI Search
             </span>
           </a>
           <nav>
@@ -21,7 +21,7 @@ const Header = () => {
                   className="rounded-full flex gap-4 items-center bg-primary-100 hover:bg-blue focus:bg-blue py-2 px-4 justify-center sm:py-3 sm:px-6 text-white transition-colors duration-200"
                   target="_blank"
                   rel="noopener noreferrer"
-                  href="https://github.com/sanity-io/sanity-template-nextjs-clean"
+                  href="https://github.com/Team-Deploi/faq-hub-with-ai-search"
                 >
                   <span className="whitespace-nowrap">View on GitHub</span>
                   <GitHubIcon className="hidden sm:block h-4 sm:h-6" />

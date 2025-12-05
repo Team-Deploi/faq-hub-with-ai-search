@@ -6,11 +6,7 @@ import {
 
 import React, { useState, useRef } from "react";
 import { FiMinimize2 } from "react-icons/fi";
-import {
-  AI_INSTRUCTIONS,
-  BLOG_DATA_DESCRIPTION,
-  MESSAGE_THRESHOLD,
-} from "@/constants/copilot";
+import { MESSAGE_THRESHOLD } from "@/constants/copilot";
 import { ChatComponent } from "./ChatComponent";
 import { AIIcon } from "../icons/AIIcon";
 
@@ -69,8 +65,9 @@ export const CopilotCustomChat = ({
   const { visibleMessages } = useCopilotChat();
 
   const { attributes = {} } = chatbot;
-  const chatInstructions = attributes?.chatInstructions || AI_INSTRUCTIONS;
-  const dataDescription = attributes?.dataDescription || BLOG_DATA_DESCRIPTION;
+  
+  const chatInstructions = attributes?.chatInstructions || "";
+  const dataDescription = attributes?.dataDescription || "";
   const additionalInstructions = attributes?.additionalInstructions || "";
 
   useCopilotReadable({
