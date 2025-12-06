@@ -236,11 +236,10 @@ Deploy your Next.js app to your preferred hosting provider (Vercel, Netlify, etc
 - [Tailwind CSS Documentation](https://tailwindcss.com/docs)
 - [Join the Sanity Community](https://slack.sanity.io)
 
-### License
 
-This template is provided as-is for use in your projects.
 
 ---
+
 
 **Built with ❤️ by [Team Deploi](https://github.com/Team-Deploi)**
 
