@@ -2,7 +2,13 @@
 
 A Sanity-powered FAQ knowledge base with AI-powered search and chatbot capabilities, built with Next.js and CopilotKit.
 
+> **Built by [Deploi](http://deploi.ca/)** - A web development agency that helps you launch modern web solutions faster.
+
 ![FAQ Hub with AI Search](poster.png)
+
+## Demo
+
+Live demo: [https://faq-hub-with-ai-search.vercel.app/](https://faq-hub-with-ai-search.vercel.app/)
 
 ## Features
 
@@ -11,7 +17,6 @@ A Sanity-powered FAQ knowledge base with AI-powered search and chatbot capabilit
 - **Flexible Content Structure:** Organize FAQs with categories, subcategories, and hierarchical navigation
 - **Rich Content Editing:** Portable text editor with support for formatting, links, and embedded media
 - **Customizable Homepage:** Build your homepage with drag-and-drop sections (search, featured content, categories, common questions)
-- **Real-time Content Updates:** Live content updates with Sanity's real-time capabilities
 - **Related Articles:** Automatically suggest related content to keep users engaged
 - **Modern UI:** Clean, responsive design built with Tailwind CSS
 
@@ -19,7 +24,7 @@ A Sanity-powered FAQ knowledge base with AI-powered search and chatbot capabilit
 
 - **Framework:** Next.js 16.0.6 (Pages Router)
 - **Content Platform:** Sanity v4.18.0
-- **AI Integration:** CopilotKit with GroqAdapter (llama-3.3-70b-versatile model)
+- **AI Integration:** CopilotKit (defaults to Groq for free tier, supports OpenAI, Anthropic, and other providers)
 - **Styling:** Tailwind CSS v4
 - **Icons:** React Icons
 
@@ -61,8 +66,11 @@ NEXT_PUBLIC_SANITY_DATASET=production
 NEXT_PUBLIC_SANITY_API_VERSION=2024-01-01
 NEXT_PUBLIC_BASE_URL=http://localhost:3000
 
-# Required: Groq API for AI Chatbot
+# Required: LLM Provider API Key
+# Default: Groq (free tier available)
 GROQ_API_KEY=your-groq-api-key
+# Alternative providers: OPENAI_API_KEY, ANTHROPIC_API_KEY, etc.
+# See note below for switching providers
 
 # Optional: Sanity Tokens (for authenticated requests)
 SANITY_VIEWER_TOKEN=your-viewer-token
@@ -72,7 +80,7 @@ SANITY_EDITOR_TOKEN=your-editor-token
 NEXT_PUBLIC_SANITY_STUDIO_URL=http://localhost:3333
 ```
 
-> **Getting your Groq API key:** Sign up at [console.groq.com](https://console.groq.com) and create an API key. The chatbot uses Groq's `llama-3.3-70b-versatile` model by default.
+> **LLM Provider:** This template uses Groq by default (free tier available at [console.groq.com](https://console.groq.com)). You can switch to other CopilotKit-supported providers (OpenAI, Anthropic, etc.) by modifying `frontend/pages/api/copilotkit.js`. See the note in "Set up the AI Chatbot" section for details.
 
 Create a `.env` file in the `studio` directory:
 
@@ -101,6 +109,17 @@ This will start:
 #### 4. Sign in to Sanity Studio
 
 Open [http://localhost:3333](http://localhost:3333) and sign in with your Sanity account. You'll be prompted to log in using Google, GitHub, or email.
+
+#### 5. Import Sample Data (Optional)
+
+To get started quickly with sample content, you can import the provided dataset:
+
+```shell
+cd studio
+sanity dataset import production.tar.gz production --replace
+```
+
+> **Note:** This will replace any existing content in your `production` dataset. If you want to use a different dataset, replace `production` with your dataset name. The sample data includes example FAQ articles, categories, and homepage configuration.
 
 ### Adding Content
 
@@ -131,7 +150,7 @@ Open [http://localhost:3333](http://localhost:3333) and sign in with your Sanity
 2. Configure chatbot settings and instructions
 3. The chatbot will use your FAQ articles as knowledge base
 
-> **Note:** The chatbot uses Groq's API (via CopilotKit) for AI responses. Make sure you've set the `GROQ_API_KEY` environment variable. You can customize the LLM model or switch to a different provider by modifying `frontend/pages/api/copilotkit.js`.
+> **Note:** The chatbot uses Groq by default (free tier available), but you can switch to any CopilotKit-supported provider. To switch providers, edit `frontend/pages/api/copilotkit.js` and replace `GroqAdapter` with `OpenAIAdapter`, `AnthropicAdapter`, or another supported adapter. See [CopilotKit documentation](https://docs.copilotkit.ai) for all supported providers and adapters.
 
 #### 4. Set up Sanity Embeddings Index (for AI Search)
 
@@ -201,76 +220,6 @@ Deploy your Next.js app to your preferred hosting provider (Vercel, Netlify, etc
 4. Configure environment variables in your hosting provider's dashboard
 5. Deploy
 
-### Environment Variables Reference
-
-**Frontend (`frontend/.env.local`):**
-
-**Required:**
-- `NEXT_PUBLIC_SANITY_PROJECT_ID` - Your Sanity project ID
-- `NEXT_PUBLIC_SANITY_DATASET` - Your Sanity dataset (usually "production")
-- `NEXT_PUBLIC_SANITY_API_VERSION` - Sanity API version (e.g., "2024-01-01")
-- `NEXT_PUBLIC_BASE_URL` - Your site's base URL (e.g., "http://localhost:3000")
-- `GROQ_API_KEY` - Your Groq API key for the AI chatbot ([Get one here](https://console.groq.com))
-
-**Optional:**
-- `SANITY_VIEWER_TOKEN` - Sanity API token with read access (for authenticated queries)
-- `SANITY_EDITOR_TOKEN` - Sanity API token with write access (for mutations)
-- `NEXT_PUBLIC_SANITY_STUDIO_URL` - Studio URL for visual editing (e.g., "http://localhost:3333")
-
-**Studio (`studio/.env`):**
-
-**Required:**
-- `SANITY_STUDIO_PROJECT_ID` - Your Sanity project ID
-- `SANITY_STUDIO_DATASET` - Your Sanity dataset
-
-**Optional:**
-- `SANITY_STUDIO_TITLE` - Custom title for your Studio (defaults to dataset name)
-- `SANITY_STUDIO_HOSTNAME` - Custom hostname for Studio deployment
-
-> **Note:** There's a known issue in `frontend/pages/category/[...slugs].js` line 35 that uses `process.env.BASE_URL` instead of `NEXT_PUBLIC_BASE_URL`. This should be fixed in the codebase for client-side access.
-
-### Customization
-
-#### Styling
-
-The project uses Tailwind CSS v4. Customize styles in:
-- `frontend/styles/globals.css` - Global styles
-- Component-level Tailwind classes
-
-#### Schema Customization
-
-Modify content schemas in `studio/schemaTypes/`:
-- Add new fields to existing documents
-- Create new document types
-- Customize validation rules
-
-#### AI Chatbot Configuration
-
-The chatbot uses CopilotKit with Groq's API. Customize:
-
-1. **Chatbot Instructions:** Edit `frontend/constants/copilot.js`:
-   - Modify routing rules
-   - Update response formatting
-   - Adjust tone and style
-
-2. **LLM Provider/Model:** Edit `frontend/pages/api/copilotkit.js`:
-   - Change the GroqAdapter model
-   - Switch to a different provider (OpenAI, Anthropic, etc.)
-   - Configure API keys accordingly
-
-#### Required Sanity Plugins
-
-This template uses several Sanity plugins that are already configured:
-
-- `@sanity/assist` - AI-powered content assistance
-- `@sanity/embeddings-index-ui` - Embeddings index dashboard for semantic search
-- `sanity-plugin-media` - Enhanced media library
-- `sanity-plugin-asset-source-unsplash` - Unsplash image integration
-- `sanity-plugin-markdown` - Markdown support
-- `@sanity/vision` - GROQ query tool
-
-All plugins are pre-configured in `studio/sanity.config.js`.
-
 ### Scripts
 
 - `npm run dev` - Start both frontend and studio in development mode
@@ -289,9 +238,11 @@ All plugins are pre-configured in `studio/sanity.config.js`.
 
 ### License
 
-See [LICENSE](LICENSE) file for details.
+This template is provided as-is for use in your projects.
 
-### Support
+---
 
-For issues, questions, or contributions, please open an issue on the [GitHub repository](https://github.com/Team-Deploi/faq-hub-with-ai-search).
+**Built with ❤️ by [Team Deploi](https://github.com/Team-Deploi)**
+
+Learn more about our web development services at [deploi.ca](http://deploi.ca/)
 

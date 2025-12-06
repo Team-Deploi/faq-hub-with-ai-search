@@ -32,7 +32,7 @@ const CategoryPage = ({
   const headingTitle = isSubcategory ? category?.title : displayTitle;
   const heading = `${categoryPage?.heading ?? ""} ${headingTitle}`.trim();
   const description = `Expert Shopify FAQs for ${displayTitle}—find curated answers, guides, and common questions.`;
-  const ogImage = `${process.env.BASE_URL}/images/og.png`;
+  const ogImage = `${process.env.NEXT_PUBLIC_BASE_URL}/images/og.png`;
   const canonicalUrl = subcategory
     ? `${process.env.NEXT_PUBLIC_BASE_URL}/category/${categorySlug}/${subcategorySlug}`
     : `${process.env.NEXT_PUBLIC_BASE_URL}/category/${categorySlug}`;
