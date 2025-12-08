@@ -121,6 +121,17 @@ sanity dataset import production.tar.gz production --replace
 
 > **Note:** This will replace any existing content in your `production` dataset. If you want to use a different dataset, replace `production` with your dataset name. The sample data includes example FAQ articles, categories, and homepage configuration.
 
+#### 6. Troubleshooting Installation Issues
+
+If you encounter errors while running the project after initializing the template, try clearing the node_modules folders and lock files, then reinstalling:
+
+```shell
+rm -rf package-lock.json node_modules studio/package-lock.json studio/node_modules
+npm install
+```
+
+This removes all installed packages and reinstalls them from scratch.
+
 ### Adding Content
 
 #### 1. Create your first FAQ article
