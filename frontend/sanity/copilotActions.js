@@ -1,17 +1,6 @@
-import { client, embeddedApiClient } from "./client.js";
+import { client } from "./client.js";
 import { FAQ_LLM_ARTICLES_QUERY, COMPANY_INFO_QUERY } from "./queries.js";
-
-async function queryEmbeddingsIndex(query, maxResults = 5) {
-  const response = await embeddedApiClient.request({
-    url: `/embeddings-index/query/production/faq-articles-index`,
-    method: "POST",
-    body: {
-      query: query,
-      maxResults: maxResults,
-    },
-  });
-  return response.map((item) => item.value.documentId) || [];
-}
+import { queryEmbeddingsIndex } from "./embeddingsIndex.js";
 
 export const FetchKnowledgebaseArticles = {
   name: "FetchKnowledgebaseArticles",
@@ -35,11 +24,15 @@ export const FetchKnowledgebaseArticles = {
     console.log("🔍 FetchKnowledgebaseArticles Query:", query);
     try {
       // Search for relevant articles using embeddings
-      const articleIds = await queryEmbeddingsIndex(query, maxResults);
+      const articlesWithScores = await queryEmbeddingsIndex(query, maxResults);
 
-      if (!articleIds?.length) {
+      if (!articlesWithScores?.length) {
         return "No relevant articles found for your query.";
       }
+
+      // Extract IDs from the results
+      const articleIds = articlesWithScores.map((item) => item.id);
+
       // Fetch full article content using the FAQ_LLM_ARTICLES_QUERY
       const articles = await client.fetch(FAQ_LLM_ARTICLES_QUERY, {
         ids: articleIds,

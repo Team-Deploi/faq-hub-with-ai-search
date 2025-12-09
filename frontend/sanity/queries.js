@@ -327,6 +327,26 @@ export const FAQ_LLM_ARTICLES_QUERY = defineQuery(`
   }
 `);
 
+export const FAQ_LLM_ARTICLES_SEARCH_QUERY = defineQuery(`
+  *[_id in $ids]{
+    _id,
+    title,
+    excerpt,
+    "slug": slug.current,
+    volume,
+    category->{
+      _id,
+      title,
+      "slug": slug.current
+    },
+    subCategory->{
+      _id,
+      title,
+      "slug": slug.current
+    }
+  }
+`);
+
 export const COMPANY_INFO_QUERY = defineQuery(`
   *[_type == "faqChatBot"][0].companyInformation
 `);

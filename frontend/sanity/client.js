@@ -11,14 +11,6 @@ export const client = createClient({
   },
 });
 
-export const embeddedApiClient = createClient({
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
-  apiVersion: "vX",
-  useCdn: true,
-  token: process.env.SANITY_VIEWER_TOKEN,
-});
-
 export const apiClient = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,

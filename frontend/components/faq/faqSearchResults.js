@@ -1,9 +1,8 @@
 import { useDebounce } from "@/hooks/useDebounce";
-import { client } from "@/sanity/client";
-import { FAQ_ARTICLE_SEARCH_QUERY } from "@/sanity/queries";
 import { buildFaqPath } from "@/utils/buildFaqPath";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { IoClose } from "react-icons/io5";
+import axios from "axios";
 
 // Remote search config
 const PAGE_SIZE = 20;
@@ -87,31 +86,37 @@ export const FAQSearchResults = ({
         setIsDropdownOpen(true);
         setError(null);
 
-        const start = page * PAGE_SIZE;
-        const end = start + PAGE_SIZE;
-
-        const data = await client.fetch(FAQ_ARTICLE_SEARCH_QUERY, {
-          term: `*${term}*`,
-          start: start,
-          end: end,
-        });
+        // Call the API endpoint for embeddings search
+        const response = await axios.post(
+          "/api/embeddings-search",
+          {
+            query: term,
+            maxResults: 15,
+            page: page,
+          },
+          {
+            signal: abortController.signal,
+          }
+        );
 
         if (!abortController.signal.aborted) {
-          const results = data?.results || [];
-          const total = data?.total || 0;
+          const results = response.data.results || [];
+          const total = response.data.total || 0;
           setResults(results);
           setTotal(total);
           // Cache the results
           setCachedResults(term, results, total);
         }
       } catch (error) {
-        if (error.name !== "AbortError") {
-          console.error("Search error:", error);
-          if (!abortController.signal.aborted) {
-            setError("Failed to search articles. Please try again.");
-            setResults([]);
-            setTotal(0);
-          }
+        if (axios.isCancel(error) || error.name === "AbortError") {
+          // Request was cancelled, ignore
+          return;
+        }
+        console.error("Search error:", error);
+        if (!abortController.signal.aborted) {
+          setError("Failed to search articles. Please try again.");
+          setResults([]);
+          setTotal(0);
         }
       } finally {
         if (!abortController.signal.aborted) {
