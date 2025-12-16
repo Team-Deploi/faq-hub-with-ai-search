@@ -346,3 +346,7 @@
 .animatePopupOut {
   animation: popupOut 0.2s forwards;
 }
+
+body.overflow-hidden {
+  overflow: hidden !important;
+}

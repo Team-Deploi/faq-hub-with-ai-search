@@ -1,8 +1,5 @@
-import { useChatContext } from "@copilotkit/react-ui";
-import { Markdown } from "@copilotkit/react-ui";
+import { Markdown, useChatContext } from "@copilotkit/react-ui";
 import React from "react";
-
-const LoadingIcon = (icons) => <span>{icons.activityIcon}</span>;
 
 export const CustomAssistantMessage = (props) => {
   const { icons } = useChatContext();
@@ -12,22 +9,15 @@ export const CustomAssistantMessage = (props) => {
 
   return (
     <React.Fragment>
-      {(message || isLoading) && (
-        <div
-          className={`copilotKitMessage copilotKitAssistantMessage ${
-            isCurrentMessage ? "isCurrentMessage" : ""
-          }`}
-        >
-          {message && (
-            <Markdown
-              content={
-                typeof message === "string" ? message : message?.content ?? ""
-              }
-            />
-          )}
-          {isLoading && <LoadingIcon icons={icons} />}
-        </div>
-      )}
+      <div
+        className={`copilotKitMessage copilotKitAssistantMessage ${
+          isCurrentMessage ? "isCurrentMessage" : ""
+        }`}
+      >
+        {message && <Markdown content={message.content || ""} />}
+        {isLoading && icons.spinnerIcon}
+      </div>
+
       <div style={{ marginBottom: "0.5rem" }}>{subComponent}</div>
     </React.Fragment>
   );
