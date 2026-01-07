@@ -8,7 +8,7 @@ const Header = () => {
         <div className="flex items-center justify-between gap-5">
           <a className="flex items-center gap-2" href={"/"}>
             <span className="text-lg sm:text-2xl pl-2 font-semibold">
-              FAQ Hub With AI Search
+              FAQ Hub with AI Chatbot
             </span>
           </a>
           <nav>

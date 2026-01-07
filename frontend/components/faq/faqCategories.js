@@ -8,7 +8,7 @@ const FAQCategoryButton = ({ title, href, active = false }) => {
       className={`h-12 px-[23px] py-3 text-base font-medium whitespace-nowrap rounded-md ${
         active
           ? "bg-primary-100 text-white border border-primary-100"
-          : "text-tertiary-100 border border-tertiary-100"
+          : "text-tertiary-100 border border-tertiary-100 hover:bg-primary-100 hover:text-white hover:border-primary-100 transition-colors duration-200"
       }`}
     >
       {title || "Category"}
@@ -25,7 +25,7 @@ const FAQCategoryList = ({
   return (
     <div className="flex flex-col gap-5">
       <Heading2>{title || "Select Cate-gory"}</Heading2>
-      <div className="flex md:flex-wrap flex-nowrap overflow-auto gap-x-[14px] gap-y-[22px]">
+      <div className="flex md:flex-wrap flex-nowrap overflow-auto gap-x-3.5 gap-y-[22px]">
         {Array.isArray(items) && items.length
           ? items.map((item, index) => {
               // If parentCategorySlug is provided, these are subcategories
