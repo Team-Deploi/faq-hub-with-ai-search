@@ -1,10 +1,10 @@
-# FAQ Hub with AI Search
+# FAQ Hub with AI Chatbot
 
 A Sanity-powered FAQ knowledge base with AI-powered search and chatbot capabilities, built with Next.js and CopilotKit.
 
 > **Built by [Deploi](http://deploi.ca/)** - A web development agency that helps you launch modern web solutions faster.
 
-![FAQ Hub with AI Search](poster.png)
+![FAQ Hub with AI Chatbot](poster.png)
 
 ## Demo
 
@@ -22,7 +22,7 @@ Live demo: [https://faq-hub-with-ai-search.vercel.app/](https://faq-hub-with-ai-
 
 ## What you'll get
 
-- **Framework:** Next.js 16.0.6 (Pages Router)
+- **Framework:** Next.js 16.0.7 (Pages Router)
 - **Content Platform:** Sanity v4.18.0
 - **AI Integration:** CopilotKit (defaults to Groq for free tier, supports OpenAI, Anthropic, and other providers)
 - **Styling:** Tailwind CSS v4
@@ -103,6 +103,7 @@ npm run dev
 ```
 
 This will start:
+
 - **Next.js app** at [http://localhost:3000](http://localhost:3000)
 - **Sanity Studio** at [http://localhost:3333](http://localhost:3333)
 
@@ -247,12 +248,8 @@ Deploy your Next.js app to your preferred hosting provider (Vercel, Netlify, etc
 - [Tailwind CSS Documentation](https://tailwindcss.com/docs)
 - [Join the Sanity Community](https://slack.sanity.io)
 
-
-
 ---
-
 
 **Built with ❤️ by [Team Deploi](https://github.com/Team-Deploi)**
 
 Learn more about our web development services at [deploi.ca](http://deploi.ca/)
-
