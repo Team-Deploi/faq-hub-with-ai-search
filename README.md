@@ -2,7 +2,7 @@
 
 A Sanity-powered FAQ knowledge base with AI-powered search and chatbot capabilities, built with Next.js and CopilotKit.
 
-> **Built by [Deploi](http://deploi.ca/)** - A web development agency that helps you launch modern web solutions faster.
+> **Built by [Deploi](https://deploi.ca/)** - A web development agency that helps you launch modern web solutions faster.
 
 ![FAQ Hub with AI Chatbot](poster.png)
 
