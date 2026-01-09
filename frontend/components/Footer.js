@@ -5,9 +5,9 @@ const Footer = () => {
   return (
     <footer className="bg-white py-6 mt-10 border-t border-gray-100">
       <div className="container mx-auto px-4 text-center text-sm text-gray-500">
-        <p className="flex items-center justify-center gap-1">
+        <p>
           Built with{" "}
-          <HeartIcon className="w-4 h-4 text-red-500 fill-current inline-block" />{" "}
+          <HeartIcon className="w-4 h-4 text-red-500 fill-current inline-block align-text-bottom" />{" "}
           by{" "}
           <a
             href="https://deploi.ca/"
